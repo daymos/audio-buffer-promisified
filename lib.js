@@ -1,24 +1,28 @@
+
 'use strict'
 
 function sourcesInitialiser(rawBuffersName, playableSources){ 
-  window[playableSources] = []
-  new Promise((resolve,reject)=>{
-    window[rawBuffersName]
-      .forEach((rawBuffer, i) =>{ window.audioCtx.decodeAudioData(rawBuffer)
-      .then((decodedBuffer) => {
-        let source = window.audioCtx.createBufferSource()
-        source.buffer = decodedBuffer
-        return source
-      })
-      .then((source) => {
-        window[playableSources][i] = source
-        window[playableSources][i].connect(window.audioCtx.destination)
-        if(i === window[rawBuffersName].length -1 ) resolve(`An array containing playable sources
-                                                            can be found  the global window object,
-                                                            here: window.${playableSources}`)
-      })})
-  }).then((message)=>console.log(message))
-  .catch((e) => { console.log(e) })
+  return new Promise((resolve,reject)=>{
+    window[playableSources] = []
+    new Promise((resolve,reject)=>{
+      window[rawBuffersName]
+        .forEach((rawBuffer, i) =>{ window.audioCtx.decodeAudioData(rawBuffer)
+        .then((decodedBuffer) => {
+          let source = window.audioCtx.createBufferSource()
+          source.buffer = decodedBuffer
+          return source
+        })
+        .then((source) => {
+          window[playableSources][i] = source
+          window[playableSources][i].connect(window.audioCtx.destination)
+          if(i === window[rawBuffersName].length -1 ){
+            resolve(`An array containing playable sources can be found  the global window object,
+                    here: window.${playableSources}`)
+          }
+        })})
+    }).then((message)=>console.log(message))
+    .catch((e) => { console.log(e) })
+  })
 }
 
 
@@ -35,5 +39,12 @@ function rawBuffersLoader(url, rawBuffersName = 'rawBuffs'){
   })  
 }
 
-module.exports.rawBuffersLoader = rawBuffersLoader
-module.exports.sourcesInitialiser = sourcesInitialiser
+if(typeof window === 'undefined'){
+  module.exports.rawBuffersLoader = rawBuffersLoader
+  module.exports.sourcesInitialiser = sourcesInitialiser
+}else{
+  window.rawBuffersLoader = rawBuffersLoader
+  window.sourcesInitialiser = sourcesInitialiser
+}
+
+
