@@ -7,7 +7,7 @@
 AudioBuffer is necessary if you need to play precisely sync audio files in the browser. 
 This library helps you deal with the fact that playable sources must be reloaded after having been started.  
 
- The `rawBufferLoader` function makes all the http calls to get the raw buffer only once.  
+The `rawBufferLoader` function makes all the http calls to get the raw buffer only once.  
  
 The `sourcesInitialiser` recreate playable buffers from the raw ones.
 
@@ -18,7 +18,6 @@ Load all audio sources you want eventually to play:
 
 ```
 rawBuffersLoader(['http://some-audio-file-url','http://some-other-audio-file-url' ], myRawBufferArray)
-
 ```
 The first parameters is and array of urls that point to all the audio files you want to load.
 
@@ -26,7 +25,6 @@ The second parameter is a string and should be the name of the variable attached
 
 ```
 sourcesInitialiser(rowBufferName, playableSources)
-
 ```
 The first parameters is a string, should be the value created by rawBuffersLoader.
 The second parameter is a string, should be the name of the variable that will contain the playable sources. 
