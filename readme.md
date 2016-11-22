@@ -1,4 +1,4 @@
-#audio-buffer-promisified
+# HTML5 audiobuffer-promisified
 ##Easy to use promisified version of audioBuffer
 
 
@@ -22,20 +22,19 @@ rawBuffersLoader(['http://some-audio-file-url','http://some-other-audio-file-url
 ```
 The first parameters is and array of urls that point to all the audio files you want to load.
 
-The second parameter is the name of the variable attached to the window object where you want to save your raw buffers.
+The second parameter is a string and should be the name of the variable attached to the window object where you want to save your raw buffers.
 
 ```
 sourcesInitialiser(rowBufferName, playableSources)
 
 ```
-The first parameters is the value created by rawBuffersLoader.
-The second parameter is the name of the variable that will contain the playable sources. 
+The first parameters is a string, should be the value created by rawBuffersLoader.
+The second parameter is a string, should be the name of the variable that will contain the playable sources. 
 
 ###Example
 ```
 rawBuffersLoader(['http://localhost:30001/audio1.wav','http://google.com/music.wav' ], 'rBuff')
-
-sourcesInitialiser('rBuffs', 'playableStuffArray')
+.then(()=>{sourcesInitialiser('rBuffs', 'playableStuffArray')})
 
 ``` 
 
