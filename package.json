@@ -1,6 +1,6 @@
 {
   "name": "audiobuffer-promisified",
-  "version": "0.1.1",
+  "version": "0.1.3",
   "description": "A simple promisified version of AudioBuffer",
   "main": "lib.js",
   "scripts": {
