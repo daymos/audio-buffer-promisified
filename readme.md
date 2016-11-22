@@ -35,6 +35,6 @@ The second parameter is a string, should be the name of the variable that will c
 ```
 rawBuffersLoader(['http://localhost:30001/audio1.wav','http://google.com/music.wav' ], 'rBuff')
 .then(()=>{sourcesInitialiser('rBuffs', 'playableStuffArray')})
-
+.then(()=> window.playableStuffArray[0].start(0)) // this will play the first sound in the array
 ``` 
 
