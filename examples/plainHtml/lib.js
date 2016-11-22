@@ -1,4 +1,3 @@
-
 'use strict'
 
 function sourcesInitialiser(rawBuffersName, playableSources){ 
