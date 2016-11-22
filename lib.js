@@ -2,9 +2,8 @@
 'use strict'
 
 function sourcesInitialiser(rawBuffersName, playableSources){ 
-  return new Promise((resolve,reject)=>{
     window[playableSources] = []
-    new Promise((resolve,reject)=>{
+    return new Promise((resolve,reject)=>{
       window[rawBuffersName]
         .forEach((rawBuffer, i) =>{ window.audioCtx.decodeAudioData(rawBuffer)
         .then((decodedBuffer) => {
@@ -20,31 +19,37 @@ function sourcesInitialiser(rawBuffersName, playableSources){
                     here: window.${playableSources}`)
           }
         })})
-    }).then((message)=>console.log(message))
-    .catch((e) => { console.log(e) })
-  })
+    })
+    .then((message)=>console.log(message))
+    .catch((e) =>console.log(e))
 }
 
 
 function rawBuffersLoader(url, rawBuffersName = 'rawBuffs'){
-  window.audioCtx = new (window.AudioContext || window.webkitAudioContext)
-  window[rawBuffersName] = []
-  if(!(url instanceof Array)) return Error('put your urls into and array')
-  if( typeof context === 'undefinded' ){ context = new AudioContext() }
-  url.forEach((el, i) => {
-    fetch(el)
-      .then((res) => res.arrayBuffer())
-      .then((rawBuff) => window[rawBuffersName][i] = rawBuff )
-      .then(() => console.log('raw buffers for each of your sound are reacheable here: window.', rawBuffersName ))
-  })  
+  return new Promise((resolve, reject)=>{
+    window.audioCtx = new (window.AudioContext || window.webkitAudioContext)
+    window[rawBuffersName] = []
+    if(!(url instanceof Array)) return Error('put your urls into and array')
+    if( typeof context === 'undefinded' ){ context = new AudioContext() }
+    url.forEach((el, i) => {
+      fetch(el)
+        .then((res) => res.arrayBuffer())
+        .then((rawBuff) => window[rawBuffersName][i] = rawBuff )
+        .then(() =>{
+          if(i === url.length - 1){
+            resolve((rawBuffersName)=> console.log('raw buffers for each of your sound are reacheable here: window.', rawBuffersName ))
+          }
+        }) 
+    })
+  })
 }
 
-if(typeof window === 'undefined'){
-  module.exports.rawBuffersLoader = rawBuffersLoader
-  module.exports.sourcesInitialiser = sourcesInitialiser
-}else{
-  window.rawBuffersLoader = rawBuffersLoader
-  window.sourcesInitialiser = sourcesInitialiser
-}
 
+  if(typeof window === 'undefined'){
+    module.exports.rawBuffersLoader = rawBuffersLoader
+    module.exports.sourcesInitialiser = sourcesInitialiser
+  }else{
+    window.rawBuffersLoader = rawBuffersLoader
+    window.sourcesInitialiser = sourcesInitialiser
+  }
 
