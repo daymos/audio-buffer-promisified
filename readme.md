@@ -1,4 +1,4 @@
-#audio-buffer-promisified
+# HTML5 audiobuffer-promisified
 ##Easy to use promisified version of audioBuffer
 
 
