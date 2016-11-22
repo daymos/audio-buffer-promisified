@@ -34,8 +34,7 @@ The second parameter is the name of the variable that will contain the playable 
 ###Example
 ```
 rawBuffersLoader(['http://localhost:30001/audio1.wav','http://google.com/music.wav' ], 'rBuff')
-
-sourcesInitialiser('rBuffs', 'playableStuffArray')
+.then(sourcesInitialiser('rBuffs', 'playableStuffArray'))
 
 ``` 
 
